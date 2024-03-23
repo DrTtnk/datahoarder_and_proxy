@@ -1,161 +1,135 @@
 {
-	"info": {
-		"_postman_id": "aa08f0b2-9a7a-4449-9e9e-16c5261594ba",
-		"name": "DataHoarder",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{cluster}}/login",
-					"host": [
-						"{{cluster}}"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Document List",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "Bearer {{accessToken}}",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "{{cluster}}/documents",
-					"host": [
-						"{{cluster}}"
-					],
-					"path": [
-						"documents"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Document",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "Bearer {{accessToken}}",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "{{cluster}}/documents/<some-id>",
-					"host": [
-						"{{cluster}}"
-					],
-					"path": [
-						"documents",
-						"<some-id>"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Document",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "Bearer {{accessToken}}",
-						"type": "default"
-					}
-				],
-				"url": {
-					"raw": "{{cluster}}/documents/<some-id>",
-					"host": [
-						"{{cluster}}"
-					],
-					"path": [
-						"documents",
-						"<some-id>"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Save Document",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "Bearer {{accessToken}}",
-						"type": "default"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": \"some-id\",\n    \"name\": \"some-name\",\n    \"content\": \"some-content\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{cluster}}/documents",
-					"host": [
-						"{{cluster}}"
-					],
-					"path": [
-						"documents"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "cluster",
-			"value": "http://0.0.0.0:7000",
-			"type": "default"
-		},
-		{
-			"key": "accessToken",
-			"value": "",
-			"type": "default"
-		}
-	]
+  "info": {
+    "_postman_id": "aa08f0b2-9a7a-4449-9e9e-16c5261594ba",
+    "name": "DataHoarder",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{cluster}}/login",
+          "host": ["{{cluster}}"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Document List",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{accessToken}}",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "{{cluster}}/documents",
+          "host": ["{{cluster}}"],
+          "path": ["documents"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Document",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{accessToken}}",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "{{cluster}}/documents/<some-id>",
+          "host": ["{{cluster}}"],
+          "path": ["documents", "<some-id>"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Document",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{accessToken}}",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "{{cluster}}/documents/<some-id>",
+          "host": ["{{cluster}}"],
+          "path": ["documents", "<some-id>"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Save Document",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer {{accessToken}}",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"id\": \"some-id\",\n    \"name\": \"some-name\",\n    \"content\": \"some-content\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{cluster}}/documents",
+          "host": ["{{cluster}}"],
+          "path": ["documents"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "cluster",
+      "value": "http://0.0.0.0:7000",
+      "type": "default"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "default"
+    }
+  ]
 }
