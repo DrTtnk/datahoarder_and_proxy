@@ -1,4 +1,4 @@
-# check for npm and node
+set -e
 
 assert_command () {
   if ! [ -x "$(command -v $1)" ]; then
@@ -11,11 +11,9 @@ assert_command npm
 assert_command node
 assert_command docker
 
-npm ci &
-(cd ./dataHoarder && npm ci) &
-(cd ./proxy       && npm ci) &
-
-wait
+npm ci
+(cd ./dataHoarder && npm ci)
+(cd ./proxy       && npm ci)
 
 npm run prepare
 
@@ -26,9 +24,9 @@ echo "Would you like to run the integration tests? (y/n)"
 read -r run_tests
 
 if [ "$run_tests" = "y" ]; then
+  trap "docker compose down -t 10" EXIT
+
   docker compose --env-file ./.dockerized.env up --build -d --wait --remove-orphans
 
   npm run test:integration
-
-  docker compose down
 fi

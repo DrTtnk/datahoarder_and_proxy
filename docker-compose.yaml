@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   data-hoarder-mongo:
     image: mongo:latest
