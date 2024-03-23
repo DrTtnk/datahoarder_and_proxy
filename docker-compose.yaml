@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  data-hoarder-mongo:
+    image: mongo:latest
+    container_name: data-hoarder-mongo
+    command: mongod --quiet --logpath /var/log/mongodb/mongod.log
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+
+  proxy-mongo:
+    image: mongo:latest
+    container_name: proxy-mongo
+    command: mongod --quiet --logpath /var/log/mongodb/mongod.log
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27018/test --quiet
+
+  data-hoarder-app:
+    build: ./dataHoarder
+    container_name: data-hoarder
+    depends_on:
+      - data-hoarder-mongo
+    healthcheck:
+      test: curl --fail http://localhost:3000/health
+    environment:
+      - DATAHOARDER_DB=${DATAHOARDER_DB}
+      - DATAHOARDER_TOKEN_SECRET=${DATAHOARDER_TOKEN_SECRET}
+
+  proxy-app:
+    build: ./proxy
+    container_name: proxy
+    ports:
+      - '7000:3000'
+    depends_on:
+      - proxy-mongo
+      - data-hoarder-app
+    environment:
+      - PROXY_DB=${PROXY_DB}
+      - DATAHOARDER_URL=${DATAHOARDER_URL}
+      - PROXY_TOKEN_SECRET=${PROXY_TOKEN_SECRET}
+    healthcheck:
+      test: curl --fail http://localhost:3000/health

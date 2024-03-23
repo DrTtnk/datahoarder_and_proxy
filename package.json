@@ -1,0 +1,22 @@
+{
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2"
+  },
+  "name": "test_adorea",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "prettier --write .",
+    "test": "export $(cat .dockerized.env | xargs) && jest",
+    "cluster": "docker compose --env-file ./.dockerized.env up --build --remove-orphans --abort-on-container-exit",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "DrTtnk",
+  "license": "ISC",
+  "description": "A little test"
+}
