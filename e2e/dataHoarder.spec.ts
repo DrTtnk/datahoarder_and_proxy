@@ -19,13 +19,10 @@ describe('Service E2E Test', () => {
     console.log(`Access token: ${accessToken}`);
   });
 
-  it('should get all documents', async () => {
-    const response = await request(serviceUrl)
-      .get('/documents')
-      .set('authorization', `Bearer ${accessToken}`);
+  it('should return unauthorized without token', async () => {
+    const response = await request(serviceUrl).get('/documents');
 
-    expect(response.status).toBe(200);
-    expect(response.body).toBeInstanceOf(Array);
+    expect(response.status).toBe(401);
   });
 
   it('should create a document', async () => {
@@ -36,6 +33,21 @@ describe('Service E2E Test', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject(someDoc);
+  });
+
+  it('should get all documents', async () => {
+    const someOtherDoc = { ...someDoc, id: 'some-other-id' };
+    await request(serviceUrl)
+      .post('/documents')
+      .send(someOtherDoc)
+      .set('authorization', `Bearer ${accessToken}`);
+
+    const response = await request(serviceUrl)
+      .get('/documents')
+      .set('authorization', `Bearer ${accessToken}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject([someDoc, someOtherDoc]);
   });
 
   it('should get a specific document', async () => {

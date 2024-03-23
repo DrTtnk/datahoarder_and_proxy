@@ -12,7 +12,11 @@ const authenticated = expressjwt({
 
 const defaultErrorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   console.error(err.stack);
-  res.status(500).send({ error: 'Something went wrong!' });
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send({ error: 'Unauthorized' });
+  } else {
+    res.status(500).send({ error: 'Something went wrong!' });
+  }
 };
 
 const loggerMiddleware: Handler = (req, _res, next) => {
